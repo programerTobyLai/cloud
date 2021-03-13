@@ -37,7 +37,7 @@
 			const list = document.getElementById('list')
 			perchannel = '<a href="{link}" class="mdui-list-item mdui-ripple">{text}</a>'
 			for (var key in channels) {
-				list.innerHTML += perchannel.replace('{link}', 'index.html?channel=' + escape(key)).replace('{text}', key)
+				list.innerHTML += perchannel.replace('{link}', '/tobytv?channel=' + escape(key)).replace('{text}', key)
 			}
 			mdui.mutation()
 
