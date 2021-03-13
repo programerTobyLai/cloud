@@ -3,7 +3,7 @@ const channels = {
 	'CCTV2': 'http://ivi.bupt.edu.cn/hls/cctv2.m3u8',
 	'CCTV3': 'http://ivi.bupt.edu.cn/hls/cctv3.m3u8',
 	'CCTV4': 'http://ivi.bupt.edu.cn/hls/cctv4.m3u8',
-	'CCTV5': 'http://223.82.250.72/live/cctv-5/1.m3u8',
+	'CCTV5': 'http://ivi.bupt.edu.cn/hls/cctv5hd.m3u8',
 	'CCTV5+': 'http://ivi.bupt.edu.cn/hls/cctv5phd.m3u8',
 	'CCTV6': 'http://ivi.bupt.edu.cn/hls/cctv6.m3u8',
 	'CCTV7': 'http://ivi.bupt.edu.cn/hls/cctv7.m3u8',
