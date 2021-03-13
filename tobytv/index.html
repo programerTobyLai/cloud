@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" />
+		<meta name="renderer" content="webkit" />
+		<meta name="force-rendering" content="webkit" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/css/mdui.min.css" integrity="sha384-cLRrMq39HOZdvE0j6yBojO4+1PrHfB7a9l5qLcmRm/fiWXYY+CndJPmyu5FV/9Tw"
+		 crossorigin="anonymous" />
+		<script src="./getChannel.js" type="text/javascript" charset="utf-8"></script>
+		<script src="https://cdn.jsdelivr.net/hls.js/latest/hls.min.js"></script>
+		<title>TobyTV</title>
+		<!--https://www.bootcdn.cn/video.js/-->
+		<link href="https://cdn.bootcss.com/video.js/7.6.5/alt/video-js-cdn.min.css" rel="stylesheet">
+		<script src="https://cdn.bootcss.com/video.js/6.6.2/video.js"></script>
+		<!--https://www.bootcdn.cn/videojs-contrib-hls/-->
+		<script src="https://cdn.bootcss.com/videojs-contrib-hls/5.15.0/videojs-contrib-hls.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/js/mdui.min.js" integrity="sha384-gCMZcshYKOGRX9r6wbDrvF+TcCCswSHFucUzUPwka+Gr+uHgjlYvkABr95TCOz3A"
+		 crossorigin="anonymous"></script>
+	</head>
+	<body class="mdui-drawer-body-left mdui-appbar-with-toolbar">
+		<div class="mdui-appbar mdui-appbar-fixed">
+			<div class="mdui-toolbar mdui-color-blue">
+				<button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#left-drawer', swipe: true}"><i class="mdui-icon material-icons">menu</i></button>
+				<a href="javascript:;" class="mdui-typo-headline">TobyTV</a>
+			</div>
+		</div>
+		<!-- 默认抽屉栏在左侧 -->
+		<div class="mdui-drawer mdui-shadow-12" id="left-drawer">
+			<div class="mdui-list" id="list">
+
+			</div>
+		</div>
+		<div id="cont" class="mdui-container mdui-typo"></div>
+		<script>
+			const list = document.getElementById('list')
+			perchannel = '<a href="{link}" class="mdui-list-item mdui-ripple">{text}</a>'
+			for (var key in channels) {
+				list.innerHTML += perchannel.replace('{link}', 'index.html?channel=' + escape(key)).replace('{text}', key)
+			}
+			mdui.mutation()
+
+			function getUrlVar(variable) {
+				var query = window.location.search.substring(1);
+				var vars = query.split("&");
+				for (var i = 0; i < vars.length; i++) {
+					var pair = vars[i].split("=");
+					if (pair[0] == variable) {
+						return pair[1];
+					}
+				}
+				return (false);
+			}
+			const cont = document.getElementById('cont')
+			url = getUrlVar('channel')
+			url = unescape(url)
+			console.log(url)
+			if (url) {
+				if (channels[url]) {
+					vtext =
+						`<h3>${url}</h3>
+						<p>加载可能时间较长，请耐心等待</p>
+					<video id="myVideo" class="video-js vjs-default-skin vjs-big-play-centered" controls width="500" height="430" data-setup='{}'>    
+						<source id="source" src="${channels[url]}"  type="application/x-mpegURL">
+					</video>`
+					cont.innerHTML = vtext;
+					var myVideo = videojs('myVideo', {
+						bigPlayButton: true,
+						textTrackDisplay: false,
+						posterImage: false,
+						errorDisplay: false,
+					})
+					myVideo.play() // 视频播放
+				} else {
+					vtext =
+						`<h1>TobyTV</h1>
+					<hr>
+					<p>（直播源来源：<a href="http://ivi.bupt.edu.cn/">http://ivi.bupt.edu.cn/</a>）</p>
+					<p>打开侧边栏选择频道播放</p>`
+					cont.innerHTML = vtext;
+				}
+			}
+		</script>
+	</body>
+</html>
